@@ -32,7 +32,7 @@ const getUserById = (req , res ) => {
 }
 
 const getUsers = (req , res) => {
-  UserModel.findOne({}, '_id fullname nickname email' , function(err , user){
+  UserModel.find({}, '_id fullname nickname email' , function(err , user){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
