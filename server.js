@@ -1,0 +1,35 @@
+var dotenv = require('dotenv')
+dotenv.load()
+var express = require('express'),
+  app = express(),
+  port = process.env.PORT || 3000,
+  mongoose = require('mongoose'),
+  User = require('./api/models/userModel'),
+  Building = require('./api/models/buildingModel'),
+  Poi = require('./api/models/poiModel')
+  bodyParser = require('body-parser');
+
+var cors = require('cors')
+app.use(cors())
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/Tododb' , {useMongoClient : true });
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+var userRoutes = require('./api/routes/userRoutes');
+var buildingRoutes = require('./api/routes/buildingRoutes')
+var poiRoutes = require('./api/routes/poiRoutes')
+
+userRoutes(app);
+buildingRoutes(app);
+poiRoutes(app);
+
+app.use(function(req, res) {
+  res.status(404).send({url: req.originalUrl + ' not found'})
+});
+
+app.listen(port);
+
+console.log('todo list RESTful API server started on: ' + port);
