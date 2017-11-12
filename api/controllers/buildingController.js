@@ -14,7 +14,7 @@ const createBuilding = (req,res) => {
 }
 
 const getBuildings = (req,res) => {
-  buildingModel.find({},'_id name pois',(err, bud) =>{
+  BuildingModel.find({},'_id name pois',(err, bud) =>{
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
