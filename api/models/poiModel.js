@@ -9,8 +9,8 @@ ArcSchema = new Schema({
     type: Number ,
     set: (v) => (Math.round(v)),
     default: 1,
-    isStair: {type: Boolean}
-  }
+  },
+  isStair: {type: Boolean}
 })
 
 PoiSchema = new Schema({
