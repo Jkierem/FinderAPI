@@ -16,6 +16,7 @@ ArcSchema = new Schema({
 PoiSchema = new Schema({
   name: {type: String , required: true },
   kind: {type: String, enum:kinds, required: true},
+  description: {type: String},
   neighbors: [ArcSchema]
 })
 
