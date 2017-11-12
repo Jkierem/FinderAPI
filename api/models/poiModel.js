@@ -1,14 +1,15 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
-const kinds = ["Cafeteria","Baño","Entrada","Salida","Entrada/Salida"]
+const kinds = ["Cafeteria","Camino","Entrada","Salida","Entrada/Salida","Rampa","Escalera"]
 
 ArcSchema = new Schema({
   name: {type: String , required:true},
   cost: {
     type: Number ,
     set: (v) => (Math.round(v)),
-    default: 1
+    default: 1,
+    isStair: {type: Boolean}
   }
 })
 
