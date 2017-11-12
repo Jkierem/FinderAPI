@@ -4,7 +4,7 @@ var dotenv = require('dotenv')
 dotenv.load()
 
 const getUserByNickname = (req , res) =>{
-  UserModel.findOne({"nickname": req.params.nickname},'_id fullname nickname email', function(err , user){
+  UserModel.findOne({$or:[{"nickname": req.params.nickname},{"email":req.params.nickname}]},'_id fullname nickname email', function(err , user){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
@@ -81,13 +81,28 @@ const updateUser = (req, res) =>{
 }
 
 const deleteUser = (req , res) =>{
-  UserModel.remove({
-    _id: req.params.userId
-  }, function(err, user) {
-    if (err)
-      res.status(500).send(err);
-    res.status(200).json({ message: 'User successfully deleted' });
-  });
+  UserModel.findOne({"_id":req.params.userId}, '_id password', function(err,user){
+    if(err){
+      res.status(500).json({response: false , error:err})
+    }else{
+      if( user == null || user == '' ){
+        res.json({response:false , error:'User does not exist'} )
+      }else{
+        var hash = md5(`${req.body.password}${process.env.SALT}`)
+        if( hash === user.password ){
+          UserModel.remove({
+            _id: req.params.userId
+          }, function(err, user) {
+            if (err)
+              res.status(500).json({response: false , error:err});
+            res.status(200).json({ response:true, message: 'User successfully deleted' });
+          });
+        }else{
+          res.json({response:false , message: `Invalid password ${req.body.password}`})
+        }
+      }
+    }
+  })
 }
 
 const authenticateUser = (req,res) =>{
