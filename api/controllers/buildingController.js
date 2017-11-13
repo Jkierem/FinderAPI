@@ -56,7 +56,7 @@ const deleteBuilding = (req,res) => {
 }
 
 const getBuildingById = (req,res) =>{
-  BuildingModel.find({"_id": req.params.buidlId},'_id name pois', function(err , bud){
+  BuildingModel.findOne({"_id": req.params.buidlId},'_id name pois', function(err , bud){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
@@ -70,7 +70,7 @@ const getBuildingById = (req,res) =>{
 }
 
 const getBuildingByName = (req,res) =>{
-  BuildingModel.find({"name": req.params.name},'_id name pois', function(err , bud){
+  BuildingModel.findOne({"name": req.params.name},'_id name pois', function(err , bud){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{

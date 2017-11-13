@@ -53,7 +53,7 @@ const updatePoi = (req,res) =>{
 }
 
 const getPoiById = (req,res) =>{
-  PoiModel.find({_id:req.params.poiId},poiAttributes,(err,poi)=>{
+  PoiModel.findOne({_id:req.params.poiId},poiAttributes,(err,poi)=>{
     if(err){
       res.status(500).json({response: false , error:err})
     }else{
@@ -77,7 +77,7 @@ const deletePoi = (req,res) =>{
 }
 
 const getPoiByName = (req,res) =>{
-  PoiModel.find({name:req.params.name},poiAttributes,(err,poi)=>{
+  PoiModel.findOne({name:req.params.name},poiAttributes,(err,poi)=>{
     if(err){
       res.status(500).json({response: false , error:err})
     }else{
