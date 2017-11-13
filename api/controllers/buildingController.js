@@ -55,29 +55,31 @@ const deleteBuilding = (req,res) => {
   });
 }
 
+//* leaving method for legacy purposes
 const getBuildingById = (req,res) =>{
-  BuildingModel.findOne({"_id": req.params.buidlId},'_id name pois', function(err , bud){
+  BuildingModel.findOne({_id: req.params.buidlId},'_id name pois', function(err , bud){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
       if( bud == null || bud == '' ){
         res.status(404).json({ response: false , message:`${req.params.buildId} not found` })
       }else{
-        res.status(200).json(user)
+        res.status(200).json({ response: true , building: bud})
       }
     }
   })
 }
+//****** 
 
 const getBuildingByName = (req,res) =>{
-  BuildingModel.findOne({"name": req.params.name},'_id name pois', function(err , bud){
+  BuildingModel.findOne({name: req.body.name},'_id name pois', function(err , bud){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
       if( bud == null || bud == '' ){
         res.status(404).json({ response: false , message:`${req.params.name} not found` })
       }else{
-        res.status(200).json(user)
+        res.status(200).json({response: true , building: bud})
       }
     }
   })

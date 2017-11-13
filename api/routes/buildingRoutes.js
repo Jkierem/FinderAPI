@@ -10,10 +10,9 @@ module.exports = (app) => {
   app.route('/buildings/:buildId')
     .put(building.updateBuilding)
     .delete(building.deleteBuilding)
-    .get(building.getBuildingById)
 
-  app.route('/buildings/info/:name')
-    .get(building.getBuildingByName)
+  app.route('/buildings/info')
+    .post(building.getBuildingByName)
 
   app.route('/list')
     .get(mixed.getUsefulPois)

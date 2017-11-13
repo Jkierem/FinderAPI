@@ -11,7 +11,7 @@ module.exports = (app) =>{
     .get(poi.getPoiById)
     .delete(poi.deletePoi)
 
-  app.route('/pois/info/:name')
-    .get(poi.getPoiByName)
+  app.route('/pois/info')
+    .post(poi.getPoiByName)
 
 }

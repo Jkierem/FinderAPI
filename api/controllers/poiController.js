@@ -60,7 +60,7 @@ const getPoiById = (req,res) =>{
       if( poi == null || poi == '' ){
         res.status(404).json({response: false , message: `Could not find poi with id ${req.params.poiId}`})
       }else{
-        res.status(200).json(poi)
+        res.status(200).json({response: true, poi:poi})
       }
     }
   })
@@ -77,14 +77,14 @@ const deletePoi = (req,res) =>{
 }
 
 const getPoiByName = (req,res) =>{
-  PoiModel.findOne({name:req.params.name},poiAttributes,(err,poi)=>{
+  PoiModel.findOne({name:req.body.name},poiAttributes,(err,poi)=>{
     if(err){
       res.status(500).json({response: false , error:err})
     }else{
       if( poi == null || poi == '' ){
         res.status(404).json({response: false , message: `Could not find poi with name ${req.params.name}`})
       }else{
-        res.status(200).json(poi)
+        res.status(200).json({response: true , poi:poi})
       }
     }
   })
