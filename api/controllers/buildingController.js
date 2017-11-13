@@ -21,7 +21,7 @@ const getBuildings = (req,res) => {
       if( bud == null || bud == '' ){
         res.status(404).json({ response: false , message:"No buildings in your mango" })
       }else{
-        res.status(200).json(bud)
+        res.status(200).json({ response: true , buildings:bud})
       }
     }
   })
