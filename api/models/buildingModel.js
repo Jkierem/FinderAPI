@@ -5,7 +5,7 @@ const kinds = ["Cafeteria","Camino","Entrada","Salida","Entrada/Salida","Rampa",
 
 innerPoiSchema = new Schema({
   name: {type: String},
-  type: {type: String, enum:kinds, required: true},
+  kind: {type: String, enum:kinds, required: true},
   description: {type: String}
 })
 

@@ -1,6 +1,6 @@
 var PoiModel = require('../models/poiModel')
 
-let poiAttributes = 'name kind neighbors';
+let poiAttributes = '_id name kind neighbors description';
 
 const getPois = (req,res) =>{
   PoiModel.find({},poiAttributes,(err,poi)=>{
@@ -20,6 +20,7 @@ const createPoi = (req,res) =>{
   var newPoi = new PoiModel()
   newPoi.name = req.body.name
   newPoi.kind = req.body.kind
+  newPoi.description = req.body.description
   newPoi.neighbors = req.body.neighbors
   newPoi.save((err,poi)=>{
     if(err){
@@ -35,9 +36,10 @@ const updatePoi = (req,res) =>{
     if(err){
       res.status(500).json({ response: false , error:err})
     }else{
-      const { name , kind , neighbors } = req.body
+      const { name , kind , neighbors, description } = req.body
       poi.name = (name === undefined )? poi.name : name
       poi.kind = (kind === undefined )? poi.kind : kind
+      poi.description = (description === undefined )? poi.description : description
       poi.neighbors = (neighbors === undefined)? poi.neighbors : neighbors
       poi.save((err,poi)=>{
         if(err){
