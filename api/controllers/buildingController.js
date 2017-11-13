@@ -8,7 +8,7 @@ const createBuilding = (req,res) => {
     if( err ){
       res.status(500).json({ response: false , error:err})
     }else{
-      res.status(200).json(build)
+      res.status(200).json({response: true , buildings:build})
     }
   })
 }
@@ -69,7 +69,7 @@ const getBuildingById = (req,res) =>{
     }
   })
 }
-//****** 
+//******
 
 const getBuildingByName = (req,res) =>{
   BuildingModel.findOne({name: req.body.name},'_id name pois', function(err , bud){

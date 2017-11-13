@@ -10,7 +10,7 @@ const getPois = (req,res) =>{
       if( poi == null || poi == '' ){
         res.status(404).json({ response: false , message:"No points of interest in your mango" })
       }else{
-        res.status(200).json(poi)
+        res.status(200).json({response:true, pois:poi})
       }
     }
   })
