@@ -3,8 +3,10 @@ var md5 = require('md5')
 var dotenv = require('dotenv')
 dotenv.load()
 
+let userAtt = '_id fullname nickname email additionalData'
+
 const getUserByNickname = (req , res) =>{
-  UserModel.findOne({$or:[{"nickname": req.params.nickname},{"email":req.params.nickname}]},'_id fullname nickname email', function(err , user){
+  UserModel.findOne({$or:[{"nickname": req.params.nickname},{"email":req.params.nickname}]},userAtt, function(err , user){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
@@ -18,7 +20,7 @@ const getUserByNickname = (req , res) =>{
 }
 
 const getUserById = (req , res ) => {
-  UserModel.findOne({"_id": req.params.userId},'_id fullname nickname email', function(err , user){
+  UserModel.findOne({"_id": req.params.userId},userAtt, function(err , user){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
@@ -32,7 +34,7 @@ const getUserById = (req , res ) => {
 }
 
 const getUsers = (req , res) => {
-  UserModel.find({}, '_id fullname nickname email' , function(err , user){
+  UserModel.find({}, userAtt , function(err , user){
     if(err){
       res.status(404).json({ response: false , error:err })
     }else{
@@ -68,6 +70,7 @@ const updateUser = (req, res) =>{
     }else{
       user.fullname = (req.body.fullname === undefined)? user.fullname : req.body.fullname
       user.email = (req.body.email === undefined)? user.email : req.body.email
+      user.additionalData = (req.body.additionalData === undefined)? user.additionalData : req.body.additionalData
       user.password = (req.body.password === undefined)? user.password : md5(`${req.body.password}${process.env.SALT}`)
       user.save(function(err,user){
         if(err){
